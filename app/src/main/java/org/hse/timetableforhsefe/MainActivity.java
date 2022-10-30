@@ -2,6 +2,7 @@ package org.hse.timetableforhsefe;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -12,17 +13,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        View buttonStudent = findViewById(R.id.btnStd);
+        View buttonTeacher = findViewById(R.id.btnTch);
     }
 
     public void onBtnStdClick(View view){
-        Toast toast = Toast.makeText(getApplicationContext(),
-                "Расписание студента", Toast.LENGTH_SHORT);
-        toast.show();
+        Intent intent = new Intent(this,StudentActivity.class);
+        startActivity(intent);
     }
 
     public void onBtnTchClick(View view){
-        Toast toast = Toast.makeText(getApplicationContext(),
-                "Расписание преподавателя", Toast.LENGTH_SHORT);
-        toast.show();
+        Intent intent = new Intent(this,TeacherActivity.class);
+        startActivity(intent);
     }
 }

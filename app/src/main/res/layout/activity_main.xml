@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic__1_logo_hse_full_rus_cmyk" />
+        app:srcCompat="@drawable/_1_logo_hse_full_rus_cmyk" />
 
     <Button
         android:id="@+id/btnStd"
