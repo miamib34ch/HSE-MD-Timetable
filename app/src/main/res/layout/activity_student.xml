@@ -11,10 +11,11 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
         android:layout_weight="1"
         android:paddingLeft="16dp"
-        android:layout_marginVertical="10dp"
-        android:text="@string/choose_group_label" />
+        android:text="@string/choose_group_label"
+        android:textAppearance="@style/HSE.Style.Label" />
 
     <Spinner
         android:id="@+id/groupList"
