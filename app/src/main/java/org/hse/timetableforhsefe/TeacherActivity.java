@@ -20,6 +20,13 @@ public class TeacherActivity extends AppCompatActivity {
 
     private TextView time, status, subject, cabinet, corp, teacher;
     Date currentTime;
+    StudentActivity.Group[] mock = {
+            new StudentActivity.Group(1,"Радионова"),
+            new StudentActivity.Group(2,"Яборов"),
+            new StudentActivity.Group(3,"Лядова"),
+            new StudentActivity.Group(4,"Суворов"),
+            new StudentActivity.Group(5,"Ветров")
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +36,7 @@ public class TeacherActivity extends AppCompatActivity {
         final Spinner spinner = findViewById(R.id.groupList);
 
         List<StudentActivity.Group> groups = new ArrayList<>();
-        initGroupList(groups);
+        initGroupList(groups,mock);
 
         ArrayAdapter<?> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,groups);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -60,14 +67,15 @@ public class TeacherActivity extends AppCompatActivity {
         initData();
     }
 
-    private void initGroupList(List<StudentActivity.Group> groups){
-        groups.add(new StudentActivity.Group(1,"Викентьева"));
-        groups.add(new StudentActivity.Group(2,"Яборов"));
+    private void initGroupList(List<StudentActivity.Group> groups, StudentActivity.Group[] list){
+        for (StudentActivity.Group teacher: list){
+            groups.add(new StudentActivity.Group(teacher.getId(),teacher.getName()));
+        }
     }
 
     private void initTime(){
         currentTime = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm, EEEE", Locale.forLanguageTag("RU"));
         time.setText(simpleDateFormat.format(currentTime));
     }
 

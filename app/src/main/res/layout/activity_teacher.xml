@@ -11,83 +11,89 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
         android:layout_weight="1"
         android:paddingLeft="16dp"
-        android:layout_marginVertical="10dp"
         android:text="Выберите преподавателя:" />
 
     <Spinner
         android:id="@+id/groupList"
-        android:layout_width="319dp"
+        android:layout_width="309dp"
         android:layout_height="48dp"
-        android:layout_weight="1" />
+        android:layout_marginStart="8dp"
+        android:layout_weight="1"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:paddingLeft="16dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:paddingLeft="16dp" />
 
     <TextView
         android:id="@+id/status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
-        android:paddingLeft="16dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:paddingLeft="16dp" />
 
     <TextView
         android:id="@+id/subject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:paddingLeft="16dp" />
 
     <TextView
         android:id="@+id/cabinet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:paddingLeft="16dp" />
 
     <TextView
         android:id="@+id/corp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:paddingLeft="16dp" />
 
     <TextView
         android:id="@+id/teacher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:paddingLeft="16dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:layout_marginHorizontal="16dp"
-        android:orientation="horizontal">
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:showDividers="middle">
 
         <Button
             android:id="@+id/button_day"
-            android:layout_width="175dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
+            android:layout_marginEnd="1.5dp"
+            android:layout_weight="1"
             android:lines="2"
             android:text="@string/timetable_day_label"
             android:textAlignment="center" />
 
         <Button
             android:id="@+id/button_week"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="1.5dp"
+            android:layout_weight="1"
             android:lines="2"
             android:text="@string/timetable_week_label"
             android:textAlignment="center" />
