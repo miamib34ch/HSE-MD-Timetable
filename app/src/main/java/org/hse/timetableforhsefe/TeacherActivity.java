@@ -76,7 +76,9 @@ public class TeacherActivity extends AppCompatActivity {
     private void initTime(){
         currentTime = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm, EEEE", Locale.forLanguageTag("RU"));
-        time.setText(simpleDateFormat.format(currentTime));
+        String[] dateFormatSplit = simpleDateFormat.format(currentTime).split(" ");
+        String timeText = "Сегодня: "+dateFormatSplit[0]+" "+dateFormatSplit[1].substring(0,1).toUpperCase()+dateFormatSplit[1].substring(1);
+        time.setText(timeText);
     }
 
     private void initData(){

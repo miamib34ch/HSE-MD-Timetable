@@ -21,18 +21,33 @@ import java.util.Locale;
 public class StudentActivity extends AppCompatActivity {
     private TextView time, status, subject, cabinet, corp, teacher;
     Date currentTime;
-    StudentActivity.Group[] mock = {
-            new StudentActivity.Group(1,"ПИ-20-1"),
-            new StudentActivity.Group(2,"ПИ-20-2"),
-            new StudentActivity.Group(3,"ПИ-19-1"),
-            new StudentActivity.Group(4,"ПИ-19-2"),
-    };
+
+    String[] course = {"ПИ","БИ"};
+    int[] year = {19,20};
+    int[] groupNumber = {1,2};
+    List<StudentActivity.Group> mock = new ArrayList<>();
+
+    void enumeration(String[] course, int[] year, int[] groupNumber){
+        int count = 1;
+        for(String s: course){
+            for(int i: year){
+                for(int j: groupNumber){
+                    mock.add(new StudentActivity.Group(count,assembly(s,i,j)));
+                    count++;
+                }
+            }
+        }
+    }
+
+    String assembly(String course, int year, int groupNumber){
+        return course + "-" + year + "-" + groupNumber;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
-
+        enumeration(course, year, groupNumber);
         final Spinner spinner = findViewById(R.id.groupList);
 
         List<Group> groups = new ArrayList();
@@ -67,7 +82,7 @@ public class StudentActivity extends AppCompatActivity {
         initData();
     }
 
-    private void initGroupList(List<StudentActivity.Group> groups, StudentActivity.Group[] list){
+    private void initGroupList(List<StudentActivity.Group> groups, List<StudentActivity.Group> list){
         for (StudentActivity.Group group: list){
             groups.add(new StudentActivity.Group(group.getId(),group.getName()));
         }
@@ -76,7 +91,9 @@ public class StudentActivity extends AppCompatActivity {
     private void initTime(){
         currentTime = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm, EEEE", Locale.forLanguageTag("RU"));
-        time.setText(simpleDateFormat.format(currentTime));
+        String[] dateFormatSplit = simpleDateFormat.format(currentTime).split(" ");
+        String timeText = "Сегодня: "+dateFormatSplit[0]+" "+dateFormatSplit[1].substring(0,1).toUpperCase()+dateFormatSplit[1].substring(1);
+        time.setText(timeText);
     }
 
     private void initData(){
