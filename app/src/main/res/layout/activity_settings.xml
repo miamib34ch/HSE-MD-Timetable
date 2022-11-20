@@ -9,10 +9,14 @@
         android:id="@+id/info_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
         android:stretchColumns="*"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="16dp">
+        app:layout_constraintBottom_toTopOf="@+id/save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TableRow>
 
@@ -70,26 +74,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btnSave"
+        app:layout_constraintBottom_toTopOf="@+id/allSensorsLabel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/info_box" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/allSensorsLabel"
         style="@style/HSE.Style.Label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:paddingTop="10dp"
         android:text="@string/settings_all_sensors"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/save" />
 
     <TextView
         android:id="@+id/allSensors"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
 
         android:layout_margin="10dp"
+        android:layout_marginBottom="385dp"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbars="vertical"
+        android:verticalScrollbarPosition="right"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/allSensorsLabel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

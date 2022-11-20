@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -67,6 +68,8 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
         for (Sensor sensor : sensors)
             allSensorsText += sensor.getName() + '\n';
         allSensors.setText(allSensorsText);
+
+        allSensors.setMovementMethod(new ScrollingMovementMethod());
 
         Button saveButton = findViewById(R.id.save);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -169,7 +172,7 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); //создаём экран кмеры
         File photoFile = null;
         try {
-            photoFile = createImageFile(); // создаём пустой файл фото (абстрактный путь)
+            photoFile = createImageFile(); // создаём пустой файл фото
         } catch (IOException ex) {
             Log.e(TAG, "Create file", ex);
         }
