@@ -5,4 +5,13 @@
     <string name="timetable_day_label">Расписание\nна день</string>
     <string name="timetable_week_label">Расписание\nна неделю</string>
     <string name="choose_group_label">Выберите группу:</string>
+    <string name="btnSettings">Настройки</string>
+    <string name="btnSave">Сохранить</string>
+    <string name="settingsHintName">Укажите ваше имя</string>
+    <string name="btnPhotoSelect">Сделать фото</string>
+    <string name="settingsPhotoText">Укажите фото:</string>
+    <string name="settingsLightLevelText">Текущая освещенность:</string>
+    <string name="saved_message">Сохранено</string>
+    <string name="ask_photo_permits">Для снятия фото нужно предоставить права на фото</string>
+    <string name="settings_all_sensors">Все датчики:</string>
 </resources>
