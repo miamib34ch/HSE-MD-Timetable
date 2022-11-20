@@ -37,74 +37,15 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
     private TextView sensorLight;
 
     private EditText nameEdit;
-
-    private PreferenceManager preferenceManager;
-
-    private static final String PERMISSION = "android.permission.CAMERA"; //разрешение которое запрашиваем
-    private static final Integer REQUEST_PERMISSION_CODE = 1; //код который вернётся в onActivityResult, помогает различать запрос
-
-    private void getName() {
-        String name = preferenceManager.getValue("name", "");
-        if (name != "")
-            nameEdit.setText(name);
-    }
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        float lux = event.values[0];
-        sensorLight.setText(lux + " lux");
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        sensorManager.registerListener(this, light, SensorManager.SENSOR_DELAY_NORMAL);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        sensorManager.unregisterListener(this);
-    }
-
-    private void save() {
-        if (nameEdit.getText() != null)
-            preferenceManager.saveValue("name", nameEdit.getText().toString());
-        if (photoURI != null)
-            preferenceManager.saveValue("avatar", photoURI.toString());
-        Toast.makeText(getApplicationContext(), getString(R.string.saved_message), Toast.LENGTH_SHORT).show();
-    }
-
-    public void checkPermission() {
-        int permissionCheck = ActivityCompat.checkSelfPermission(this, PERMISSION); //Этот метод возвращает либо PERMISSION_GRANTED, либо PERMISSION_DENIED, в зависимости от того, имеет ли ваше приложение разрешение.
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this, PERMISSION)){ //если пользователь отметил что не разрешает право то вернёт тру и покажет окно
-                Toast.makeText(getApplicationContext(), getString(R.string.ask_photo_permits), Toast.LENGTH_LONG).show();
-            }else {
-                ActivityCompat.requestPermissions(this, new String[]{PERMISSION}, REQUEST_PERMISSION_CODE);
-            }
-        } else {
-            dispatchTakePictureIntent(); //если есть разрешение фоткаем
-        }
-    }
-
     private ImageView userPhoto;
-    private static final String TAG = "SettingsActivity";
+    Uri photoURI;
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_PERMISSION_CODE) {
-            int permissionCheck = ActivityCompat.checkSelfPermission(this, PERMISSION); //Этот метод возвращает либо PERMISSION_GRANTED, либо PERMISSION_DENIED, в зависимости от того, имеет ли ваше приложение разрешение.
-            if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-            dispatchTakePictureIntent(); //если есть разрешение фоткаем
-            }
-        }
-    }
+    private PreferenceManager preferenceManager; //преференс менеджер для хранения кэша
+
+    private static final String TAG = "SettingsActivity"; //тэг для логкэта
+    private static final String PERMISSION = "android.permission.CAMERA"; //разрешение которое запрашиваем
+    private static final Integer REQUEST_PERMISSION_CODE = 1; //код который вернётся в onRequestPermissionsResult, помогает различать запрос
+    private static final Integer REQUEST_IMAGE_CAPTURE = 2; //код который вернётся в onActivityResult, помогает различать запрос
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,11 +88,38 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
         getPhoto();
     }
 
-    private static final Integer REQUEST_IMAGE_CAPTURE = 2;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sensorManager.registerListener(this, light, SensorManager.SENSOR_DELAY_NORMAL);
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(this);
+    }
 
-    Uri photoURI;
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
 
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        float lux = event.values[0];
+        sensorLight.setText(lux + " lux");
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_PERMISSION_CODE) {
+            int permissionCheck = ActivityCompat.checkSelfPermission(this, PERMISSION); //Этот метод возвращает либо PERMISSION_GRANTED, либо PERMISSION_DENIED, в зависимости от того, имеет ли ваше приложение разрешение.
+            if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                dispatchTakePictureIntent(); //если есть разрешение фоткаем
+            }
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -162,23 +130,39 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
         }
     }
 
+    private void getName() {
+        String name = preferenceManager.getValue("name", "");
+        if (name != "")
+            nameEdit.setText(name);
+    }
+
     private void getPhoto() {
-        String name = preferenceManager.getValue("avatar", "");
-        if (name != ""){
-            photoURI = Uri.parse(name);
+        String uri = preferenceManager.getValue("avatar", "");
+        if (uri != ""){
+            photoURI = Uri.parse(uri);
             userPhoto.setImageURI(photoURI);
         }
     }
 
-    private File createImageFile() throws IOException {
-        File pathOfStorageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES); //путь к стандартному месту хранению картинок, которое доступно пользователю
+    private void save() {
+        if (nameEdit.getText() != null)
+            preferenceManager.saveValue("name", nameEdit.getText().toString());
+        if (photoURI != null)
+            preferenceManager.saveValue("avatar", photoURI.toString());
+        Toast.makeText(getApplicationContext(), getString(R.string.saved_message), Toast.LENGTH_SHORT).show();
+    }
 
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String filePrefix = "img_" + timeStamp + "_";
-        String suffix = ".jpg";
-
-        File image = File.createTempFile(filePrefix, suffix, pathOfStorageDir); //создаёт файл (с рандомными цифрами в названии) нужно новое название на случай если пользователь хочет отменить сохранение
-        return image;
+    public void checkPermission() {
+        int permissionCheck = ActivityCompat.checkSelfPermission(this, PERMISSION); //Этот метод возвращает либо PERMISSION_GRANTED, либо PERMISSION_DENIED, в зависимости от того, имеет ли ваше приложение разрешение.
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this, PERMISSION)){ //если пользователь отметил что не разрешает право то вернёт тру и покажет окно
+                Toast.makeText(getApplicationContext(), getString(R.string.ask_photo_permits), Toast.LENGTH_LONG).show();
+            }else {
+                ActivityCompat.requestPermissions(this, new String[]{PERMISSION}, REQUEST_PERMISSION_CODE);
+            }
+        } else {
+            dispatchTakePictureIntent(); //если есть разрешение фоткаем
+        }
     }
 
     private void dispatchTakePictureIntent() {
@@ -199,6 +183,17 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
                 Log.e(TAG, "Start activity", e);
             }
         }
+    }
+
+    private File createImageFile() throws IOException {
+        File pathOfStorageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES); //путь к стандартному месту хранению картинок, которое доступно пользователю
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String filePrefix = "img_" + timeStamp + "_";
+        String suffix = ".jpg";
+
+        File image = File.createTempFile(filePrefix, suffix, pathOfStorageDir); //создаёт файл (с рандомными цифрами в названии) нужно новое название на случай если пользователь хочет отменить сохранение
+        return image;
     }
 }
 
