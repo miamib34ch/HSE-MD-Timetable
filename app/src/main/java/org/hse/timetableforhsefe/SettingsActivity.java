@@ -171,7 +171,7 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
     }
 
     private File createImageFile() throws IOException {
-        File pathOfStorageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES); //путь к стандартному месту хранению картинко, которое доступно пользователю
+        File pathOfStorageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES); //путь к стандартному месту хранению картинок, которое доступно пользователю
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String filePrefix = "img_" + timeStamp + "_";
