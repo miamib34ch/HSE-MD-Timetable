@@ -1,44 +1,43 @@
 package org.hse.timetableforhsefe;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import org.hse.timetableforhsefe.api.NetworkClient;
+import org.hse.timetableforhsefe.schedule.ScheduleMode;
+import org.hse.timetableforhsefe.schedule.ScheduleType;
+
 import java.util.Date;
-import java.util.Locale;
 
-public class TeacherActivity extends AppCompatActivity {
+public class TeacherActivity extends BaseActivity {
 
-    private TextView time, status, subject, cabinet, corp, teacher;
-    Date currentTime;
-    StudentActivity.Group[] mock = {
-            new StudentActivity.Group(1,"Радионова"),
-            new StudentActivity.Group(2,"Яборов"),
-            new StudentActivity.Group(3,"Лядова"),
-            new StudentActivity.Group(4,"Суворов"),
-            new StudentActivity.Group(5,"Ветров")
+    Group[] mock = {
+            new Group(1,"Радионова"),
+            new Group(2,"Яборов"),
+            new Group(3,"Лядова"),
+            new Group(4,"Суворов"),
+            new Group(5,"Ветров")
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_teacher);
+        spinner = findViewById(R.id.groupList);
+        time = findViewById(R.id.time);
+        status = findViewById(R.id.status);
+        subject = findViewById(R.id.subject);
+        cabinet = findViewById(R.id.cabinet);
+        corp = findViewById(R.id.corp);
+        teacher = findViewById(R.id.teacher);
+        btnDay = findViewById(R.id.button_day);
+        btnWeek = findViewById(R.id.button_week);
 
-        final Spinner spinner = findViewById(R.id.groupList);
-
-        List<StudentActivity.Group> groups = new ArrayList<>();
-        initGroupList(groups,mock);
-
-        ArrayAdapter<?> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,groups);
+        ArrayAdapter<?> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mock);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
@@ -55,30 +54,19 @@ public class TeacherActivity extends AppCompatActivity {
             }
         });
 
-        time = findViewById(R.id.time);
-        initTime();
-
-        status = findViewById(R.id.status);
-        subject = findViewById(R.id.subject);
-        cabinet = findViewById(R.id.cabinet);
-        corp = findViewById(R.id.corp);
-        teacher = findViewById(R.id.teacher);
-
+        NetworkClient networkClient = new NetworkClient(this);
+        networkClient.getTime();
         initData();
+
+        //действия кнопок
+        btnDay.setOnClickListener(v -> onClick(ScheduleType.DAY, ScheduleMode.TEACHER, currentTime));
+        btnWeek.setOnClickListener(v -> onClick(ScheduleType.WEEK, ScheduleMode.TEACHER, currentTime));
     }
 
-    private void initGroupList(List<StudentActivity.Group> groups, StudentActivity.Group[] list){
-        for (StudentActivity.Group teacher: list){
-            groups.add(new StudentActivity.Group(teacher.getId(),teacher.getName()));
-        }
-    }
-
-    private void initTime(){
-        currentTime = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm, EEEE", Locale.forLanguageTag("RU"));
-        String[] dateFormatSplit = simpleDateFormat.format(currentTime).split(" ");
-        String timeText = "Сегодня: "+dateFormatSplit[0]+" "+dateFormatSplit[1].substring(0,1).toUpperCase()+dateFormatSplit[1].substring(1);
-        time.setText(timeText);
+    @Override
+    public void get(Date date) {
+        super.get(date);
+        showTime();
     }
 
     private void initData(){

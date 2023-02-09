@@ -1,4 +1,4 @@
-package org.hse.timetableforhsefe;
+package org.hse.timetableforhsefe.settings;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -24,6 +24,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
+
+import org.hse.timetableforhsefe.BuildConfig;
+import org.hse.timetableforhsefe.R;
 
 import java.io.File;
 import java.io.IOException;

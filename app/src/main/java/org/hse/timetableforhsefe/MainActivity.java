@@ -6,6 +6,8 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.hse.timetableforhsefe.settings.SettingsActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onBtnSettingsClick(View view){
-        Intent intent = new Intent(this,SettingsActivity.class);
+        Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 }

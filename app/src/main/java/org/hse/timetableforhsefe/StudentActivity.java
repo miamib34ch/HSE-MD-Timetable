@@ -2,37 +2,35 @@ package org.hse.timetableforhsefe;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
+import org.hse.timetableforhsefe.api.NetworkClient;
+import org.hse.timetableforhsefe.schedule.ScheduleMode;
+import org.hse.timetableforhsefe.schedule.ScheduleType;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
-public class StudentActivity extends AppCompatActivity {
-    private TextView time, status, subject, cabinet, corp, teacher;
-    Date currentTime;
+public class StudentActivity extends BaseActivity {
+
+    //region Создание мок данных
 
     String[] course = {"ПИ","БИ"};
     int[] year = {19,20};
     int[] groupNumber = {1,2};
-    List<StudentActivity.Group> mock = new ArrayList<>();
+    List<Group> mock = new ArrayList<>();
 
     void enumeration(String[] course, int[] year, int[] groupNumber){
         int count = 1;
         for(String s: course){
             for(int i: year){
                 for(int j: groupNumber){
-                    mock.add(new StudentActivity.Group(count,assembly(s,i,j)));
+                    mock.add(new Group(count,assembly(s,i,j)));
                     count++;
                 }
             }
@@ -43,17 +41,28 @@ public class StudentActivity extends AppCompatActivity {
         return course + "-" + year + "-" + groupNumber;
     }
 
+    //endregion
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_student);
+        spinner = findViewById(R.id.groupList);
+        time = findViewById(R.id.time);
+        status = findViewById(R.id.status);
+        subject = findViewById(R.id.subject);
+        cabinet = findViewById(R.id.cabinet);
+        corp = findViewById(R.id.corp);
+        teacher = findViewById(R.id.teacher);
+        btnDay = findViewById(R.id.button_day);
+        btnWeek = findViewById(R.id.button_week);
+
+        //создаём моки
         enumeration(course, year, groupNumber);
-        final Spinner spinner = findViewById(R.id.groupList);
 
-        List<Group> groups = new ArrayList();
-        initGroupList(groups, mock);
-
-        ArrayAdapter<?> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, groups);
+        //добавляем моки
+        ArrayAdapter<?> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mock);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
@@ -70,70 +79,29 @@ public class StudentActivity extends AppCompatActivity {
             }
         });
 
-        time = findViewById(R.id.time);
-        initTime();
-
-        status = findViewById(R.id.status);
-        subject = findViewById(R.id.subject);
-        cabinet = findViewById(R.id.cabinet);
-        corp = findViewById(R.id.corp);
-        teacher = findViewById(R.id.teacher);
-
+        //устанавливаем данные
+        NetworkClient networkClient = new NetworkClient(this);
+        networkClient.getTime();
         initData();
+
+        //действия кнопок
+        btnDay.setOnClickListener(v -> onClick(ScheduleType.DAY, ScheduleMode.STUDENT,currentTime));
+        btnWeek.setOnClickListener(v -> onClick(ScheduleType.WEEK, ScheduleMode.STUDENT, currentTime));
     }
 
-    private void initGroupList(List<StudentActivity.Group> groups, List<StudentActivity.Group> list){
-        for (StudentActivity.Group group: list){
-            groups.add(new StudentActivity.Group(group.getId(),group.getName()));
-        }
+    @Override
+    public void get(Date date) {
+        super.get(date);
+        showTime();
     }
 
-    private void initTime(){
-        currentTime = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm, EEEE", Locale.forLanguageTag("RU"));
-        String[] dateFormatSplit = simpleDateFormat.format(currentTime).split(" ");
-        String timeText = "Сегодня: "+dateFormatSplit[0]+" "+dateFormatSplit[1].substring(0,1).toUpperCase()+dateFormatSplit[1].substring(1);
-        time.setText(timeText);
-    }
-
+    //какая сейчас пара
     private void initData(){
         status.setText("Нет пар");
-
         subject.setText("Дисциплина");
         cabinet.setText("Кабинет");
         corp.setText("Корпус");
-        teacher.setText("Преподавтель");
-    }
-
-    static class Group {
-        private Integer id;
-        private String name;
-
-        public Group(Integer id, String name) {
-            this.id = id;
-            this.name = name;
-        }
-
-        public Integer getId() {
-            return id;
-        }
-
-        public void setId(Integer id) {
-            this.id = id;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
+        teacher.setText("Преподаватель");
     }
 }
 

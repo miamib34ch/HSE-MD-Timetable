@@ -1,4 +1,4 @@
-package org.hse.timetableforhsefe;
+package org.hse.timetableforhsefe.settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;
