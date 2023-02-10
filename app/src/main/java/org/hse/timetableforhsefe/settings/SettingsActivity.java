@@ -182,7 +182,6 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
         if (photoFile != null) {
             photoURI = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", photoFile); //сохраняем Uri созданной пустой фотки
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI); //задаём свойство, что сохраняем результат (фото) по указанному юри
-            // если пользователь отменит снимок, то пустой файл останется! + старые фотки не удаляются
             try {
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             } catch (ActivityNotFoundException e) {

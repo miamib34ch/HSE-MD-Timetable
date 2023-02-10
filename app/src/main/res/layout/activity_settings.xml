@@ -53,10 +53,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/settingsHintName"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
                 <TextView
-                    style="@style/HSE.Style.Label"
+                    style="@style/HSE.Labels"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/settingsLightLevelText" />
@@ -80,7 +80,7 @@
 
     <TextView
         android:id="@+id/allSensorsLabel"
-        style="@style/HSE.Style.Label"
+        style="@style/HSE.Labels"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"

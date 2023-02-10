@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class PreferenceManager {
-    private final static String PREFERENCE_FILE = "org.hse.android.file";
 
+    private final static String PREFERENCE_FILE = "org.hse.android.file";
     private final SharedPreferences sharedPref;
 
     public PreferenceManager(Context context) {

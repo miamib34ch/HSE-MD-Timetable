@@ -14,10 +14,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        View buttonStudent = findViewById(R.id.btnStd);
-        View buttonTeacher = findViewById(R.id.btnTch);
-        View settingsButton = findViewById(R.id.btnSettings);
     }
 
     public void onBtnStdClick(View view){

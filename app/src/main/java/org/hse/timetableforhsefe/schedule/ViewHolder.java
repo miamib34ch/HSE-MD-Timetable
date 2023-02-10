@@ -21,20 +21,20 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     public ViewHolder(View itemView, Context context) {
         super(itemView);
         this.context = context;
-        start = itemView.findViewById(R.id.start_time);
-        end = itemView.findViewById(R.id.finish_time);
-        type = itemView.findViewById(R.id.lesson_type);
+        start = itemView.findViewById(R.id.start);
+        end = itemView.findViewById(R.id.finish);
+        type = itemView.findViewById(R.id.type);
         name = itemView.findViewById(R.id.lesson_name);
-        place = itemView.findViewById(R.id.lesson_classroom);
+        place = itemView.findViewById(R.id.place);
         teacher = itemView.findViewById(R.id.lesson_teacher);
     }
 
     public void bind(final ScheduleItem data) {
-        start.setText(data.getLessonStart());
-        end.setText(data.getLessonEnd());
-        type.setText(data.getLessonType());
-        name.setText(data.getLessonName());
-        place.setText(data.getLessonPlace());
+        start.setText(data.getStart());
+        end.setText(data.getEnd());
+        type.setText(data.getType());
+        name.setText(data.getName());
+        place.setText(data.getPlace());
         teacher.setText(data.getTeacher());
     }
 }

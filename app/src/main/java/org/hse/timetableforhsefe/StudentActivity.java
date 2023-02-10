@@ -83,16 +83,17 @@ public class StudentActivity extends BaseActivity {
         NetworkClient networkClient = new NetworkClient(this);
         networkClient.getTime();
         initData();
-
-        //действия кнопок
-        btnDay.setOnClickListener(v -> onClick(ScheduleType.DAY, ScheduleMode.STUDENT,currentTime));
-        btnWeek.setOnClickListener(v -> onClick(ScheduleType.WEEK, ScheduleMode.STUDENT, currentTime));
     }
 
+    //происходит, когда получаем данные с сервера
     @Override
     public void get(Date date) {
         super.get(date);
         showTime();
+
+        //действия кнопок
+        btnDay.setOnClickListener(v -> onClick(ScheduleType.DAY, ScheduleMode.STUDENT, currentTime));
+        btnWeek.setOnClickListener(v -> onClick(ScheduleType.WEEK, ScheduleMode.STUDENT, currentTime));
     }
 
     //какая сейчас пара

@@ -21,9 +21,9 @@ import okhttp3.ResponseBody;
 
 public class NetworkClient {
 
-    public static final String URL = "https://api.ipgeolocation.io/ipgeo?apiKey=b03018f75ed94023a005637878ec0977";
-    private OkHttpClient client = new OkHttpClient();
-    private BaseActivity delegate;
+    private final String URL = "https://api.ipgeolocation.io/ipgeo?apiKey=b03018f75ed94023a005637878ec0977";
+    private final OkHttpClient client = new OkHttpClient();
+    private final BaseActivity delegate;
 
     public NetworkClient(BaseActivity delegate){
         this.delegate = delegate;
@@ -62,7 +62,7 @@ public class NetworkClient {
             delegate.get(simpleDateFormat.parse(currentTimeVal));
         } catch (Exception e) {
             //если ответ не получилось распарсить
-            Log.e("NetworkClient","", e);
+            Log.e("NetworkClient","parseResponse", e);
             delegate.get(new Date());
         }
     }

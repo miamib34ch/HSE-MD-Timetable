@@ -57,21 +57,20 @@ public class TeacherActivity extends BaseActivity {
         NetworkClient networkClient = new NetworkClient(this);
         networkClient.getTime();
         initData();
-
-        //действия кнопок
-        btnDay.setOnClickListener(v -> onClick(ScheduleType.DAY, ScheduleMode.TEACHER, currentTime));
-        btnWeek.setOnClickListener(v -> onClick(ScheduleType.WEEK, ScheduleMode.TEACHER, currentTime));
     }
 
     @Override
     public void get(Date date) {
         super.get(date);
         showTime();
+
+        //действия кнопок
+        btnDay.setOnClickListener(v -> onClick(ScheduleType.DAY, ScheduleMode.TEACHER, currentTime));
+        btnWeek.setOnClickListener(v -> onClick(ScheduleType.WEEK, ScheduleMode.TEACHER, currentTime));
     }
 
     private void initData(){
         status.setText("Нет пар");
-
         subject.setText("Дисциплина");
         cabinet.setText("Кабинет");
         corp.setText("Корпус");

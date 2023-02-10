@@ -38,9 +38,10 @@ public  abstract class BaseActivity extends AppCompatActivity {
     protected Button btnDay;
     protected Button btnWeek;
 
-   public void get(Date date){
+    //метод вызываемый после ответа сервера
+    public void get(Date date){
        currentTime = date;
-   }
+    }
 
     //присваиваем в переданный текст вью текст
     protected void showTime() {
@@ -51,7 +52,7 @@ public  abstract class BaseActivity extends AppCompatActivity {
         time.setText(timeText);
         }
         else{
-            //если ответ получилось распарсить, но времени там не оказалось
+            //если ответ с сервера получилось распарсить, но времени там не оказалось
             currentTime = new Date();
             showTime();
         }

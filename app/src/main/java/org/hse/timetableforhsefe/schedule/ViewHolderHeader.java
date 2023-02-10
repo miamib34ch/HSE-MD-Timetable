@@ -12,15 +12,15 @@ import org.hse.timetableforhsefe.R;
 public class ViewHolderHeader extends RecyclerView.ViewHolder {
 
     private Context context;
-    private TextView title;
+    private TextView date;
 
     public ViewHolderHeader(@NonNull View itemView, Context context) {
         super(itemView);
         this.context = context;
-        title = itemView.findViewById(R.id.date);
+        date = itemView.findViewById(R.id.date);
     }
 
     public void bind(String date){
-        title.setText(date);
+        this.date.setText(date);
     }
 }

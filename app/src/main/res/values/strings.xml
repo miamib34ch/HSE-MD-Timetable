@@ -1,44 +1,23 @@
 <resources>
-    <string name="app_name">Timetable for HSE FE</string>
+    <string name="app_name">Расписание для НИУ ВШЭ</string>
+
+    <string name="logoDescription">Логотип НИУ ВШЭ</string>
     <string name="btnStd">Расписание для студентов</string>
     <string name="btnTch">Расписание для преподавателя</string>
+    <string name="btnSettings">Настройки</string>
+
     <string name="timetable_day_label">Расписание\nна день</string>
     <string name="timetable_week_label">Расписание\nна неделю</string>
     <string name="choose_group_label">Выберите группу:</string>
-    <string name="btnSettings">Настройки</string>
-    <string name="btnSave">Сохранить</string>
+    <string name="choose_teacher_label">Выберите преподавателя:</string>
+    <string name="now">Сейчас:</string>
+
     <string name="settingsHintName">Укажите ваше имя</string>
-    <string name="btnPhotoSelect">Сделать фото</string>
-    <string name="settingsPhotoText">Укажите фото:</string>
     <string name="settingsLightLevelText">Текущая освещенность:</string>
+    <string name="settingsPhotoText">Укажите фото:</string>
+    <string name="settings_all_sensors">Все датчики:</string>
+    <string name="btnSave">Сохранить</string>
+    <string name="btnPhotoSelect">Сделать фото</string>
     <string name="saved_message">Сохранено</string>
     <string name="ask_photo_permits">Для снятия фото нужно предоставить права на фото</string>
-    <string name="settings_all_sensors">Все датчики:</string>
-    <string name="timetable_for_students">Расписание для студетов</string>
-    <string name="timetable_for_teachers">Расписание для преподавателей</string>
-    <string name="choose_student">ФИО студента</string>
-    <string name="now">"Сейчас: "</string>
-    <string name="timetable_for_day">Расписание на день</string>
-    <string name="timetable_for_week">Расписание на неделю</string>
-    <string name="subject">Дисциплина</string>
-    <string name="no_classes">Нет пар</string>
-    <string name="cabinet">Кабинет</string>
-    <string name="corp">Корпус</string>
-    <string name="teacher">Преподаватель</string>
-    <string name="choose_teacher">ФИО преподавателя</string>
-    <string name="settings">Настройки</string>
-    <string name="from_gallery">Выбрать в галерее</string>
-    <string name="your_photo">Ваше фото</string>
-    <string name="take_photo">Сделать фото</string>
-    <string name="your_name">Ваше имя</string>
-    <string name="light_level">Уровень освещенности:</string>
-    <string name="save_settings">Сохранить настройки</string>
-    <string name="cancel">Отменить</string>
-    <string name="settings_saved">Настройки сохранены</string>
-    <string name="warning_null_name">Пожалуйста, введите ваше имя</string>
-    <string name="no_data_message">Нет данных</string>
-    <string name="class_in_progress">Идет пара</string>
-    <string name="Lecture">Лекция</string>
-    <string name="Seminar">Семинар</string>
-    <string name="lesson">Занятие</string>
 </resources>

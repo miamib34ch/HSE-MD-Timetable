@@ -59,7 +59,7 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return TYPE_ITEM;
     }
 
-    public void setData(List<ScheduleItem> data){
-        this.dataList = data;
+    public void setData(List<ScheduleItem> dataList){
+        this.dataList = dataList;
     }
 }
